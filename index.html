@@ -3,96 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Search Memo — Interpretation of how search demand is changing</title>
-  <meta name="description" content="The Search Memo helps operators understand how inbound demand actually works — and how search visibility translates into real business growth. Published fortnightly." />
+  <title>The Search Memo — Inbound demand intelligence for operators</title>
+  <meta name="description" content="A fortnightly memo on how inbound demand actually works — and how search visibility translates into business growth. Written for founders and operators." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500;600;700&display=swap" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><rect width='80' height='80' fill='%230F1F1F'/><rect x='1' y='1' width='78' height='78' fill='none' stroke='%23F2EDE6' stroke-width='2'/><text x='40' y='52' text-anchor='middle' font-family='Georgia,serif' font-size='22' font-weight='600' letter-spacing='1' fill='%23F2EDE6'>TSM</text></svg>" />
 
   <style>
     /* ---------- Reset ---------- */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
-    img { max-width: 100%; display: block; }
+    img, svg { max-width: 100%; display: block; }
     a { color: inherit; }
+    button { font: inherit; }
 
-    /* ---------- Tokens ---------- */
+    /* ---------- Brand tokens ---------- */
     :root {
-      --c-ink: #0F1F1F;
-      --c-teal: #1A6B6B;
-      --c-orange: #E8621A;
+      /* Brand palette */
+      --c-ink:        #0F1F1F;
+      --c-ink-soft:   #15292A;
+      --c-ink-tint:   #1d3536;
+      --c-teal:       #1A6B6B;
+      --c-teal-light: #3DA8A8;
+      --c-orange:     #E8621A;
       --c-orange-hover: #c8500f;
-      --c-paper: #F2EDE6;
-      --c-paper-dim: #e8e1d6;
-      --c-muted: #6b6b6b;
+      --c-cream:      #F2EDE6;
+      --c-mid:        #7A8F8F;
+      --c-mid-dark:   #5A7272;
 
-      --ff-display: "Raleway", "Helvetica Neue", "Segoe UI", system-ui, -apple-system, sans-serif;
-      --ff-body: "Raleway", "Helvetica Neue", "Segoe UI", system-ui, -apple-system, sans-serif;
+      /* Semantic — dark theme */
+      --c-page:       var(--c-ink);
+      --c-surface:    var(--c-ink-soft);
+      --c-text:       var(--c-cream);
+      --c-text-muted: var(--c-mid);
+      --c-text-quiet: var(--c-mid-dark);
+      --c-accent:     var(--c-teal-light);
+      --c-rule:       var(--c-teal);
+      --c-rule-soft:  rgba(242, 237, 230, 0.08);
 
-      --maxw: 880px;
-      --maxw-wide: 1080px;
+      --ff-serif: 'Cormorant', 'Iowan Old Style', 'Times New Roman', Georgia, serif;
+      --ff-sc:    'Cormorant SC', 'Cormorant', Georgia, serif;
 
-      --space-1: 0.5rem;
-      --space-2: 1rem;
-      --space-3: 1.5rem;
-      --space-4: 2rem;
-      --space-5: 3rem;
-      --space-6: 4.5rem;
-      --space-7: 6rem;
+      --maxw:      720px;
+      --maxw-wide: 1040px;
+
+      --rule-w: 1.5px;
     }
 
-    /* ---------- Base ---------- */
+    html { background: var(--c-page); }
+
     body {
-      background: var(--c-paper);
-      color: var(--c-ink);
-      font-family: var(--ff-body);
+      background: var(--c-page);
+      color: var(--c-text);
+      font-family: var(--ff-serif);
       font-size: 18px;
-      line-height: 1.6;
+      font-weight: 400;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    p {
+      margin: 0 0 1.25rem 0;
+      opacity: 0.82;
+      text-wrap: pretty;
     }
 
     h1, h2, h3, h4 {
-      font-family: var(--ff-display);
-      font-weight: 500;
-      line-height: 1.2;
-      margin: 0 0 var(--space-3) 0;
-      letter-spacing: -0.02em;
+      font-family: var(--ff-serif);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: 0.005em;
+      margin: 0 0 1.25rem 0;
+      color: var(--c-text);
+      text-wrap: balance;
     }
 
-    h1 { font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 600; letter-spacing: -0.025em; }
-    h2 { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.35; font-weight: 400; letter-spacing: -0.015em; }
+    h1 { font-size: clamp(2.4rem, 5.5vw, 3.75rem); }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); line-height: 1.25; }
     h3 { font-size: 1.5rem; }
-
-    p { margin: 0 0 var(--space-3) 0; }
 
     .container {
       max-width: var(--maxw);
       margin: 0 auto;
-      padding: 0 var(--space-3);
+      padding: 0 1.5rem;
     }
-
     .container-wide {
       max-width: var(--maxw-wide);
       margin: 0 auto;
-      padding: 0 var(--space-3);
+      padding: 0 1.5rem;
+    }
+
+    /* ---------- Brand atoms ---------- */
+    .eyebrow {
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      font-size: 0.6875rem;
+      letter-spacing: 0.44em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      display: inline-block;
     }
 
     .section-label {
-      font-family: var(--ff-body);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
+      font-family: var(--ff-sc);
+      font-weight: 500;
+      font-size: 0.6875rem;
+      letter-spacing: 0.5em;
       text-transform: uppercase;
-      color: var(--c-teal);
-      margin: 0 0 var(--space-3) 0;
+      color: var(--c-accent);
+      margin: 0 0 1rem 0;
     }
 
-    .muted {
-      color: var(--c-muted);
-      font-size: 0.9rem;
+    /* ---------- Wordmark ---------- */
+    .wordmark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 0;
+      text-decoration: none;
     }
+    .wordmark .wm-eyebrow {
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      letter-spacing: 0.44em;
+      text-transform: uppercase;
+      color: var(--c-text-quiet);
+      margin-bottom: 0.5rem;
+    }
+    .wordmark .wm-name {
+      font-family: var(--ff-serif);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: var(--c-text);
+      white-space: nowrap;
+      margin: 0.5rem 0;
+    }
+    .wordmark .wm-rule {
+      width: 100%;
+      height: var(--rule-w);
+      background: var(--c-rule);
+    }
+
+    .wordmark.wm-sm .wm-eyebrow { font-size: 0.5rem; margin-bottom: 0.375rem; }
+    .wordmark.wm-sm .wm-name    { font-size: 1.0625rem; margin: 0.375rem 0; }
+
+    .wordmark.wm-md .wm-eyebrow { font-size: 0.5625rem; margin-bottom: 0.5rem; }
+    .wordmark.wm-md .wm-name    { font-size: 1.75rem; margin: 0.5rem 0; }
+
+    .wordmark.wm-lg .wm-eyebrow { font-size: 0.6875rem; margin-bottom: 0.625rem; }
+    .wordmark.wm-lg .wm-name    { font-size: clamp(2rem, 4.5vw, 3rem); margin: 0.625rem 0; }
 
     /* ---------- Navbar ---------- */
     .nav {
@@ -100,132 +166,183 @@
       top: 0;
       z-index: 50;
       background: var(--c-ink);
-      color: var(--c-paper);
-      border-bottom: 1px solid var(--c-ink);
+      color: var(--c-text);
+      border-bottom: 1px solid var(--c-rule-soft);
     }
     .nav-inner {
       max-width: var(--maxw-wide);
       margin: 0 auto;
-      padding: var(--space-2) var(--space-3);
-      display: flex;
+      padding: 0.875rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
+      gap: 1rem;
     }
-    .wordmark {
-      font-family: var(--ff-display);
-      font-size: 1.1rem;
-      letter-spacing: 0.18em;
+    .nav-meta {
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      font-size: 0.625rem;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: var(--c-paper);
-      text-decoration: none;
+      color: var(--c-text-quiet);
+    }
+    .nav-mark {
+      justify-self: center;
+      min-width: 220px;
+      max-width: 260px;
     }
     .nav-link {
-      font-family: var(--ff-body);
-      font-size: 0.85rem;
-      letter-spacing: 0.12em;
+      justify-self: end;
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      font-size: 0.6875rem;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: var(--c-paper);
+      color: var(--c-text);
       text-decoration: none;
-      transition: color 0.15s ease;
+      border-bottom: 1px solid var(--c-accent);
+      padding-bottom: 2px;
+      transition: color 0.15s ease, border-color 0.15s ease;
     }
-    .nav-link:hover { color: var(--c-orange); }
+    .nav-link:hover { color: var(--c-accent); }
 
     /* ---------- Hero ---------- */
     .hero {
-      padding: var(--space-7) 0 var(--space-6);
+      padding: clamp(3.5rem, 9vw, 7rem) 0 clamp(2.5rem, 6vw, 4.5rem);
     }
-    .hero h1 {
-      max-width: 18ch;
-      margin-bottom: var(--space-4);
-    }
-    .hero h2 {
-      max-width: 60ch;
-      color: var(--c-ink);
-      margin-bottom: var(--space-4);
+    .hero .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
     .hero-meta {
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      font-size: 0.6875rem;
+      letter-spacing: 0.45em;
       text-transform: uppercase;
-      color: var(--c-teal);
-      font-weight: 600;
-      margin-bottom: var(--space-4);
+      color: var(--c-text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      max-width: 22ch;
+      margin-bottom: 1.75rem;
+    }
+    .hero .lede {
+      font-size: 1.25rem;
+      line-height: 1.55;
+      max-width: 56ch;
+      color: var(--c-text);
+      opacity: 0.82;
+      margin-bottom: 2.5rem;
     }
 
     /* ---------- Subscribe form ---------- */
+    .subscribe {
+      width: 100%;
+      max-width: 460px;
+      margin: 0 auto;
+    }
     .subscribe-form {
       display: flex;
-      gap: var(--space-1);
-      max-width: 480px;
-      margin-bottom: var(--space-2);
+      gap: 0.5rem;
+      width: 100%;
     }
     .subscribe-form input[type="email"] {
       flex: 1;
       min-width: 0;
-      padding: 0.85rem 1rem;
-      font-family: var(--ff-body);
-      font-size: 1rem;
+      padding: 0.875rem 1rem;
+      font-family: var(--ff-serif);
+      font-size: 1.0625rem;
       color: var(--c-ink);
-      background: #fff;
-      border: 1px solid var(--c-ink);
+      background: var(--c-cream);
+      border: 1px solid var(--c-cream);
       border-radius: 0;
       outline: none;
-      transition: border-color 0.15s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .subscribe-form input[type="email"]::placeholder {
+      color: var(--c-mid);
+      opacity: 0.7;
     }
     .subscribe-form input[type="email"]:focus {
-      border-color: var(--c-teal);
-      box-shadow: 0 0 0 2px rgba(26, 107, 107, 0.18);
+      border-color: var(--c-teal-light);
+      box-shadow: 0 0 0 2px rgba(61, 168, 168, 0.28);
     }
     .subscribe-form button {
-      padding: 0.85rem 1.5rem;
-      font-family: var(--ff-body);
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #fff;
+      padding: 0.875rem 1.5rem;
+      font-family: var(--ff-sc);
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--c-cream);
       background: var(--c-orange);
       border: 1px solid var(--c-orange);
       border-radius: 0;
       cursor: pointer;
       transition: background-color 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
     }
     .subscribe-form button:hover {
       background: var(--c-orange-hover);
       border-color: var(--c-orange-hover);
     }
     .form-note {
-      font-size: 0.85rem;
-      color: var(--c-muted);
-      margin-top: var(--space-1);
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      font-size: 0.625rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin: 1rem 0 0 0;
+      text-align: center;
     }
     .visually-hidden {
-      position: absolute;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap; border: 0;
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
 
-    /* ---------- About section ---------- */
+    /* ---------- About ---------- */
     .about {
-      padding: var(--space-6) 0;
-      border-top: 1px solid var(--c-teal);
+      padding: clamp(3rem, 7vw, 5rem) 0;
+      border-top: var(--rule-w) solid var(--c-rule);
+      border-bottom: var(--rule-w) solid var(--c-rule);
+      background: var(--c-surface);
+    }
+    .about .section-label { text-align: center; }
+    .about-intro {
+      max-width: 56ch;
+      margin: 0 auto 3rem;
+      text-align: center;
+      font-size: 1.125rem;
+      line-height: 1.6;
+      opacity: 0.82;
     }
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--space-6);
-      margin-top: var(--space-4);
+      gap: 0;
+    }
+    .about-col {
+      padding: 0 2.5rem;
+    }
+    .about-col + .about-col {
+      border-left: 1px solid var(--c-rule-soft);
     }
     .about-col h3 {
-      font-size: 1.15rem;
-      font-family: var(--ff-body);
-      font-weight: 600;
-      letter-spacing: 0.05em;
+      font-family: var(--ff-sc);
+      font-weight: 500;
+      font-size: 0.6875rem;
+      letter-spacing: 0.5em;
       text-transform: uppercase;
-      color: var(--c-ink);
-      margin-bottom: var(--space-3);
+      color: var(--c-accent);
+      margin-bottom: 1.5rem;
+    }
+    .about-col.against h3 {
+      color: var(--c-text-quiet);
     }
     .about-list {
       list-style: none;
@@ -233,131 +350,213 @@
       margin: 0;
     }
     .about-list li {
-      font-family: var(--ff-display);
-      font-size: 1.15rem;
-      line-height: 1.45;
-      padding: var(--space-2) 0;
-      border-bottom: 1px solid var(--c-paper-dim);
+      font-family: var(--ff-serif);
+      font-size: 1.125rem;
+      line-height: 1.5;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--c-rule-soft);
+      display: flex;
+      align-items: baseline;
+      gap: 0.625rem;
+      color: var(--c-text);
     }
     .about-list li:last-child { border-bottom: none; }
+    .about-list li::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--c-accent);
+      flex-shrink: 0;
+      transform: translateY(-2px);
+    }
+    .about-col.against .about-list li {
+      color: var(--c-text-quiet);
+      font-style: italic;
+      font-weight: 300;
+    }
+    .about-col.against .about-list li::before {
+      background: transparent;
+      border: 1px solid var(--c-text-quiet);
+      width: 4px; height: 4px;
+    }
 
-    /* ---------- Issues ---------- */
+    /* ---------- Recent issues ---------- */
     .issues {
-      padding: var(--space-6) 0;
-      border-top: 1px solid var(--c-teal);
+      padding: clamp(3rem, 7vw, 5rem) 0;
     }
     .issue-list {
       list-style: none;
       padding: 0;
-      margin: var(--space-4) 0 0 0;
-    }
-    .issue {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-1);
-      padding: var(--space-3) 0;
-      border-bottom: 1px solid var(--c-paper-dim);
-    }
-    .issue:last-child { border-bottom: none; }
-    .issue-tag {
-      order: -1;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--c-teal);
-    }
-    .issue-title {
-      font-family: var(--ff-display);
-      font-size: 1.6rem;
-      line-height: 1.3;
-      color: var(--c-ink);
       margin: 0;
     }
+    .issue {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--c-rule-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .issue:first-child { padding-top: 1rem; }
+    .issue:last-child  { border-bottom: none; padding-bottom: 0; }
+    .issue-meta {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      font-family: var(--ff-sc);
+      font-weight: 500;
+      font-size: 0.625rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+    }
+    .issue-tag { color: var(--c-accent); }
+    .issue-num { color: var(--c-text-quiet); }
+    .issue-title {
+      font-family: var(--ff-serif);
+      font-weight: 600;
+      font-size: clamp(1.4rem, 2.4vw, 1.875rem);
+      line-height: 1.25;
+      color: var(--c-text);
+      margin: 0.25rem 0;
+    }
     .issue-dek {
-      font-size: 0.95rem;
-      color: var(--c-muted);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--c-text);
+      opacity: 0.72;
+      max-width: 60ch;
       margin: 0;
     }
 
-    /* ---------- CTA repeat ---------- */
+    /* ---------- CTA ---------- */
     .cta {
-      padding: var(--space-7) 0;
+      padding: clamp(4rem, 8vw, 6rem) 0;
       text-align: center;
-      border-top: 1px solid var(--c-teal);
+      background: var(--c-surface);
+      border-top: var(--rule-w) solid var(--c-rule);
+    }
+    .cta .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .cta h2 {
-      max-width: 24ch;
-      margin: 0 auto var(--space-3);
+      max-width: 22ch;
+      margin: 0 auto 0.875rem;
     }
-    .cta p { margin-bottom: var(--space-4); }
-    .cta .subscribe-form {
-      margin-left: auto;
-      margin-right: auto;
+    .cta-sub {
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      font-size: 0.6875rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 2.25rem;
     }
-    .cta-footer-note {
-      font-size: 0.78rem;
-      color: var(--c-muted);
-      margin-top: var(--space-5);
-      letter-spacing: 0.04em;
+    .cta-attribution {
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      font-size: 0.5625rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--c-text-quiet);
+      margin-top: 3.5rem;
+    }
+    .cta-attribution a {
+      color: var(--c-text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--c-rule-soft);
+      padding-bottom: 1px;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .cta-attribution a:hover {
+      color: var(--c-accent);
+      border-color: var(--c-accent);
     }
 
     /* ---------- Footer ---------- */
     .footer {
       background: var(--c-ink);
-      color: var(--c-paper);
-      padding: var(--space-4) 0;
+      color: var(--c-text);
+      padding: clamp(2.5rem, 5vw, 3.5rem) 0 clamp(1.5rem, 3vw, 2rem);
+      border-top: 1px solid var(--c-rule-soft);
     }
-    .footer-inner {
+    .footer-mark {
+      max-width: 280px;
+      margin: 0 auto clamp(1.75rem, 3vw, 2.25rem);
+    }
+    .footer-bottom {
       max-width: var(--maxw-wide);
       margin: 0 auto;
-      padding: 0 var(--space-3);
+      padding: 1.5rem 1.5rem 0;
+      border-top: 1px solid var(--c-rule-soft);
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-size: 0.85rem;
+      align-items: center;
+      font-family: var(--ff-sc);
+      font-weight: 400;
+      font-size: 0.625rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--c-text-quiet);
     }
-    .footer a {
-      color: var(--c-paper);
+    .footer-bottom a {
+      color: var(--c-text-quiet);
       text-decoration: none;
       transition: color 0.15s ease;
     }
-    .footer a:hover { color: var(--c-orange); }
+    .footer-bottom a:hover { color: var(--c-text); }
+    .footer-links { display: flex; gap: 1.5rem; }
 
     /* ---------- Mobile ---------- */
-    @media (max-width: 720px) {
-      :root {
-        --space-6: 3rem;
-        --space-7: 4rem;
+    @media (max-width: 760px) {
+      .nav-inner {
+        grid-template-columns: 1fr auto;
       }
-      body { font-size: 17px; }
+      .nav-meta { display: none; }
+      .nav-mark { justify-self: start; min-width: 0; max-width: 200px; }
+      .nav-link { justify-self: end; }
+
       .about-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-4);
+        gap: 2.5rem;
       }
+      .about-col + .about-col {
+        border-left: none;
+        border-top: 1px solid var(--c-rule-soft);
+        padding-top: 2.5rem;
+      }
+      .about-col { padding: 0 1.5rem; }
+
       .subscribe-form {
         flex-direction: column;
-        gap: var(--space-2);
+        gap: 0.625rem;
       }
       .subscribe-form button { width: 100%; }
-      .footer-inner {
+
+      .footer-bottom {
         flex-direction: column;
-        gap: var(--space-2);
+        gap: 1rem;
         text-align: center;
       }
-      .issue-title { font-size: 1.35rem; }
+
+      .issue-meta { flex-wrap: wrap; gap: 0.75rem; }
     }
 
-    /* ---------- Smooth scroll ---------- */
     html { scroll-behavior: smooth; }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
   <header class="nav">
     <div class="nav-inner">
-      <a href="#top" class="wordmark">The Search Memo</a>
+      <span class="nav-meta">Est. 2026</span>
+      <a href="#top" class="nav-mark" aria-label="The Search Memo — home">
+        <span class="wordmark wm-sm">
+          <span class="wm-eyebrow">Est. 2026</span>
+          <div class="wm-rule"></div>
+          <span class="wm-name">The Search Memo</span>
+          <div class="wm-rule"></div>
+        </span>
+      </a>
       <a href="#subscribe" class="nav-link">Subscribe</a>
     </div>
   </header>
@@ -367,24 +566,28 @@
     <!-- Hero -->
     <section class="hero">
       <div class="container">
-        <p class="hero-meta">Published fortnightly &middot; Written for founders and operators</p>
+        <span class="hero-meta">A Fortnightly Memo &middot; Est. 2026</span>
         <h1>Search visibility is only half the story.</h1>
-        <h2>The Search Memo helps operators understand how inbound demand actually works — and how search visibility translates into real business growth.</h2>
+        <p class="lede">A fortnightly memo on how inbound demand actually works — and how search visibility translates into real business growth. Written for founders and operators.</p>
 
-        <!-- Beehiiv embed: replace the form below with the Beehiiv-provided embed code when available -->
-        <form id="subscribe" class="subscribe-form" action="https://embeds.beehiiv.com/REPLACE_WITH_PUBLICATION_ID/subscribe" method="post">
-          <label for="email-hero" class="visually-hidden">Email address</label>
-          <input type="email" id="email-hero" name="email" placeholder="your@email.com" autocomplete="email" required />
-          <button type="submit">Subscribe</button>
-        </form>
-        <p class="form-note">No fluff. No ranking checklists. Plain-language interpretation.</p>
+        <div id="subscribe" class="subscribe">
+          <!-- Beehiiv embed: replace the form below with the Beehiiv-provided embed code when available -->
+          <form class="subscribe-form" action="https://embeds.beehiiv.com/REPLACE_WITH_PUBLICATION_ID/subscribe" method="post">
+            <label for="email-hero" class="visually-hidden">Email address</label>
+            <input type="email" id="email-hero" name="email" placeholder="your@email.com" autocomplete="email" required />
+            <button type="submit">Subscribe</button>
+          </form>
+          <p class="form-note">No fluff &middot; No checklists &middot; No pitch</p>
+        </div>
       </div>
     </section>
 
     <!-- About -->
     <section class="about">
-      <div class="container">
-        <p class="section-label">About the memo</p>
+      <div class="container-wide">
+        <p class="section-label">About the Memo</p>
+        <p class="about-intro">An institutional read on inbound demand — the patterns, the shifts, and the decisions that follow from them. Considered. Direct. Practitioner-first.</p>
+
         <div class="about-grid">
           <div class="about-col">
             <h3>What it is</h3>
@@ -394,12 +597,12 @@
               <li>Decision-ready thinking for operators</li>
             </ul>
           </div>
-          <div class="about-col">
+          <div class="about-col against">
             <h3>What it isn&rsquo;t</h3>
             <ul class="about-list">
-              <li>Not an SEO tactics newsletter</li>
-              <li>Not beginner content</li>
-              <li>Not a lead magnet in disguise</li>
+              <li>An SEO tactics newsletter</li>
+              <li>Beginner content or jargon</li>
+              <li>A lead magnet in disguise</li>
             </ul>
           </div>
         </div>
@@ -409,51 +612,75 @@
     <!-- Recent issues -->
     <section class="issues">
       <div class="container">
-        <p class="section-label">Recent issues</p>
+        <p class="section-label">Recent Issues</p>
+
         <ul class="issue-list">
           <li class="issue">
-            <span class="issue-tag">Pattern Memo</span>
-            <h3 class="issue-title">Why rankings stopped being the signal</h3>
-            <p class="issue-dek">A look at why position-tracking misses the shift in how decision-stage buyers now move through search.</p>
+            <div class="issue-meta">
+              <span class="issue-tag">Pattern Memo</span>
+              <span class="issue-num">Issue No. 12 &middot; April 2026</span>
+            </div>
+            <h3 class="issue-title">Why your best clients find you before they know they need you</h3>
+            <p class="issue-dek">The businesses growing fastest right now aren&rsquo;t outspending competitors on ads. They&rsquo;re building the kind of presence that earns attention before a prospect has even formed the question.</p>
           </li>
+
           <li class="issue">
-            <span class="issue-tag">Decision Memo</span>
+            <div class="issue-meta">
+              <span class="issue-tag">Decision Memo</span>
+              <span class="issue-num">Issue No. 11 &middot; March 2026</span>
+            </div>
             <h3 class="issue-title">When to stop investing in top-of-funnel content</h3>
-            <p class="issue-dek">The point at which incremental traffic stops translating into pipeline — and what to redirect the budget toward.</p>
+            <p class="issue-dek">The point at which incremental traffic stops translating into pipeline — and what to redirect the budget toward when that line is crossed.</p>
           </li>
+
           <li class="issue">
-            <span class="issue-tag">Signal Report</span>
+            <div class="issue-meta">
+              <span class="issue-tag">Signal Report</span>
+              <span class="issue-num">Issue No. 10 &middot; March 2026</span>
+            </div>
             <h3 class="issue-title">The quiet collapse of branded search</h3>
-            <p class="issue-dek">What three quarters of inbound funnel data say about brand demand erosion, and the operators it&rsquo;s already affecting.</p>
+            <p class="issue-dek">What three quarters of inbound funnel data say about brand demand erosion, and the operators it&rsquo;s already affecting most.</p>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- Repeated CTA -->
+    <!-- CTA -->
     <section class="cta">
       <div class="container">
-        <h2>Join operators who read it.</h2>
-        <p class="muted">Fortnightly. Free. No obligation.</p>
+        <h2>Read what operators are reading.</h2>
+        <span class="cta-sub">Fortnightly &middot; Free &middot; No obligation</span>
 
-        <!-- Beehiiv embed: replace the form below with the Beehiiv-provided embed code when available -->
-        <form class="subscribe-form" action="https://embeds.beehiiv.com/REPLACE_WITH_PUBLICATION_ID/subscribe" method="post">
-          <label for="email-cta" class="visually-hidden">Email address</label>
-          <input type="email" id="email-cta" name="email" placeholder="your@email.com" autocomplete="email" required />
-          <button type="submit">Subscribe</button>
-        </form>
+        <div class="subscribe">
+          <!-- Beehiiv embed: replace the form below with the Beehiiv-provided embed code when available -->
+          <form class="subscribe-form" action="https://embeds.beehiiv.com/REPLACE_WITH_PUBLICATION_ID/subscribe" method="post">
+            <label for="email-cta" class="visually-hidden">Email address</label>
+            <input type="email" id="email-cta" name="email" placeholder="your@email.com" autocomplete="email" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
 
-        <p class="cta-footer-note">Where the work happens: DCB Digital</p>
+        <span class="cta-attribution">Where the work happens &middot; <a href="https://dcbdigital.com.au" rel="noopener">DCB Digital</a></span>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-inner">
-      <span>&copy; The Search Memo 2025</span>
-      <a href="#unsubscribe">Unsubscribe</a>
+    <div class="footer-mark">
+      <span class="wordmark wm-md">
+        <span class="wm-eyebrow">Est. 2026</span>
+        <div class="wm-rule"></div>
+        <span class="wm-name">The Search Memo</span>
+        <div class="wm-rule"></div>
+      </span>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; The Search Memo 2026</span>
+      <div class="footer-links">
+        <a href="#">Archive</a>
+        <a href="#">Unsubscribe</a>
+      </div>
     </div>
   </footer>
 
