@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Search Memo — Interpretation of how search demand is changing</title>
+  <meta name="description" content="The Search Memo helps operators understand how inbound demand actually works — and how search visibility translates into real business growth. Published fortnightly." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" />
+
+  <style>
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    /* ---------- Tokens ---------- */
+    :root {
+      --c-ink: #0F1F1F;
+      --c-teal: #1A6B6B;
+      --c-orange: #E8621A;
+      --c-orange-hover: #c8500f;
+      --c-paper: #F2EDE6;
+      --c-paper-dim: #e8e1d6;
+      --c-muted: #6b6b6b;
+
+      --ff-display: "Raleway", "Helvetica Neue", "Segoe UI", system-ui, -apple-system, sans-serif;
+      --ff-body: "Raleway", "Helvetica Neue", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+      --maxw: 880px;
+      --maxw-wide: 1080px;
+
+      --space-1: 0.5rem;
+      --space-2: 1rem;
+      --space-3: 1.5rem;
+      --space-4: 2rem;
+      --space-5: 3rem;
+      --space-6: 4.5rem;
+      --space-7: 6rem;
+    }
+
+    /* ---------- Base ---------- */
+    body {
+      background: var(--c-paper);
+      color: var(--c-ink);
+      font-family: var(--ff-body);
+      font-size: 18px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--ff-display);
+      font-weight: 500;
+      line-height: 1.2;
+      margin: 0 0 var(--space-3) 0;
+      letter-spacing: -0.02em;
+    }
+
+    h1 { font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 600; letter-spacing: -0.025em; }
+    h2 { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.35; font-weight: 400; letter-spacing: -0.015em; }
+    h3 { font-size: 1.5rem; }
+
+    p { margin: 0 0 var(--space-3) 0; }
+
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--space-3);
+    }
+
+    .container-wide {
+      max-width: var(--maxw-wide);
+      margin: 0 auto;
+      padding: 0 var(--space-3);
+    }
+
+    .section-label {
+      font-family: var(--ff-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-teal);
+      margin: 0 0 var(--space-3) 0;
+    }
+
+    .muted {
+      color: var(--c-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ---------- Navbar ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--c-ink);
+      color: var(--c-paper);
+      border-bottom: 1px solid var(--c-ink);
+    }
+    .nav-inner {
+      max-width: var(--maxw-wide);
+      margin: 0 auto;
+      padding: var(--space-2) var(--space-3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wordmark {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-paper);
+      text-decoration: none;
+    }
+    .nav-link {
+      font-family: var(--ff-body);
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-paper);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .nav-link:hover { color: var(--c-orange); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      padding: var(--space-7) 0 var(--space-6);
+    }
+    .hero h1 {
+      max-width: 18ch;
+      margin-bottom: var(--space-4);
+    }
+    .hero h2 {
+      max-width: 60ch;
+      color: var(--c-ink);
+      margin-bottom: var(--space-4);
+    }
+    .hero-meta {
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-teal);
+      font-weight: 600;
+      margin-bottom: var(--space-4);
+    }
+
+    /* ---------- Subscribe form ---------- */
+    .subscribe-form {
+      display: flex;
+      gap: var(--space-1);
+      max-width: 480px;
+      margin-bottom: var(--space-2);
+    }
+    .subscribe-form input[type="email"] {
+      flex: 1;
+      min-width: 0;
+      padding: 0.85rem 1rem;
+      font-family: var(--ff-body);
+      font-size: 1rem;
+      color: var(--c-ink);
+      background: #fff;
+      border: 1px solid var(--c-ink);
+      border-radius: 0;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .subscribe-form input[type="email"]:focus {
+      border-color: var(--c-teal);
+      box-shadow: 0 0 0 2px rgba(26, 107, 107, 0.18);
+    }
+    .subscribe-form button {
+      padding: 0.85rem 1.5rem;
+      font-family: var(--ff-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #fff;
+      background: var(--c-orange);
+      border: 1px solid var(--c-orange);
+      border-radius: 0;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .subscribe-form button:hover {
+      background: var(--c-orange-hover);
+      border-color: var(--c-orange-hover);
+    }
+    .form-note {
+      font-size: 0.85rem;
+      color: var(--c-muted);
+      margin-top: var(--space-1);
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap; border: 0;
+    }
+
+    /* ---------- About section ---------- */
+    .about {
+      padding: var(--space-6) 0;
+      border-top: 1px solid var(--c-teal);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      margin-top: var(--space-4);
+    }
+    .about-col h3 {
+      font-size: 1.15rem;
+      font-family: var(--ff-body);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--c-ink);
+      margin-bottom: var(--space-3);
+    }
+    .about-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .about-list li {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      line-height: 1.45;
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--c-paper-dim);
+    }
+    .about-list li:last-child { border-bottom: none; }
+
+    /* ---------- Issues ---------- */
+    .issues {
+      padding: var(--space-6) 0;
+      border-top: 1px solid var(--c-teal);
+    }
+    .issue-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-4) 0 0 0;
+    }
+    .issue {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--c-paper-dim);
+    }
+    .issue:last-child { border-bottom: none; }
+    .issue-tag {
+      order: -1;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-teal);
+    }
+    .issue-title {
+      font-family: var(--ff-display);
+      font-size: 1.6rem;
+      line-height: 1.3;
+      color: var(--c-ink);
+      margin: 0;
+    }
+    .issue-dek {
+      font-size: 0.95rem;
+      color: var(--c-muted);
+      margin: 0;
+    }
+
+    /* ---------- CTA repeat ---------- */
+    .cta {
+      padding: var(--space-7) 0;
+      text-align: center;
+      border-top: 1px solid var(--c-teal);
+    }
+    .cta h2 {
+      max-width: 24ch;
+      margin: 0 auto var(--space-3);
+    }
+    .cta p { margin-bottom: var(--space-4); }
+    .cta .subscribe-form {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-footer-note {
+      font-size: 0.78rem;
+      color: var(--c-muted);
+      margin-top: var(--space-5);
+      letter-spacing: 0.04em;
+    }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      background: var(--c-ink);
+      color: var(--c-paper);
+      padding: var(--space-4) 0;
+    }
+    .footer-inner {
+      max-width: var(--maxw-wide);
+      margin: 0 auto;
+      padding: 0 var(--space-3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+    .footer a {
+      color: var(--c-paper);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .footer a:hover { color: var(--c-orange); }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 720px) {
+      :root {
+        --space-6: 3rem;
+        --space-7: 4rem;
+      }
+      body { font-size: 17px; }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+      .subscribe-form {
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+      .subscribe-form button { width: 100%; }
+      .footer-inner {
+        flex-direction: column;
+        gap: var(--space-2);
+        text-align: center;
+      }
+      .issue-title { font-size: 1.35rem; }
+    }
+
+    /* ---------- Smooth scroll ---------- */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="wordmark">The Search Memo</a>
+      <a href="#subscribe" class="nav-link">Subscribe</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <p class="hero-meta">Published fortnightly &middot; Written for founders and operators</p>
+        <h1>Search visibility is only half the story.</h1>
+        <h2>The Search Memo helps operators understand how inbound demand actually works — and how search visibility translates into real business growth.</h2>
+
+        <!-- Beehiiv embed: replace the form below with the Beehiiv-provided embed code when available -->
+        <form id="subscribe" class="subscribe-form" action="https://embeds.beehiiv.com/REPLACE_WITH_PUBLICATION_ID/subscribe" method="post">
+          <label for="email-hero" class="visually-hidden">Email address</label>
+          <input type="email" id="email-hero" name="email" placeholder="your@email.com" autocomplete="email" required />
+          <button type="submit">Subscribe</button>
+        </form>
+        <p class="form-note">No fluff. No ranking checklists. Plain-language interpretation.</p>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="about">
+      <div class="container">
+        <p class="section-label">About the memo</p>
+        <div class="about-grid">
+          <div class="about-col">
+            <h3>What it is</h3>
+            <ul class="about-list">
+              <li>Interpretation of how search demand is changing</li>
+              <li>Pattern recognition across real inbound funnels</li>
+              <li>Decision-ready thinking for operators</li>
+            </ul>
+          </div>
+          <div class="about-col">
+            <h3>What it isn&rsquo;t</h3>
+            <ul class="about-list">
+              <li>Not an SEO tactics newsletter</li>
+              <li>Not beginner content</li>
+              <li>Not a lead magnet in disguise</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent issues -->
+    <section class="issues">
+      <div class="container">
+        <p class="section-label">Recent issues</p>
+        <ul class="issue-list">
+          <li class="issue">
+            <span class="issue-tag">Pattern Memo</span>
+            <h3 class="issue-title">Why rankings stopped being the signal</h3>
+            <p class="issue-dek">A look at why position-tracking misses the shift in how decision-stage buyers now move through search.</p>
+          </li>
+          <li class="issue">
+            <span class="issue-tag">Decision Memo</span>
+            <h3 class="issue-title">When to stop investing in top-of-funnel content</h3>
+            <p class="issue-dek">The point at which incremental traffic stops translating into pipeline — and what to redirect the budget toward.</p>
+          </li>
+          <li class="issue">
+            <span class="issue-tag">Signal Report</span>
+            <h3 class="issue-title">The quiet collapse of branded search</h3>
+            <p class="issue-dek">What three quarters of inbound funnel data say about brand demand erosion, and the operators it&rsquo;s already affecting.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Repeated CTA -->
+    <section class="cta">
+      <div class="container">
+        <h2>Join operators who read it.</h2>
+        <p class="muted">Fortnightly. Free. No obligation.</p>
+
+        <!-- Beehiiv embed: replace the form below with the Beehiiv-provided embed code when available -->
+        <form class="subscribe-form" action="https://embeds.beehiiv.com/REPLACE_WITH_PUBLICATION_ID/subscribe" method="post">
+          <label for="email-cta" class="visually-hidden">Email address</label>
+          <input type="email" id="email-cta" name="email" placeholder="your@email.com" autocomplete="email" required />
+          <button type="submit">Subscribe</button>
+        </form>
+
+        <p class="cta-footer-note">Where the work happens: DCB Digital</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>&copy; The Search Memo 2025</span>
+      <a href="#unsubscribe">Unsubscribe</a>
+    </div>
+  </footer>
+
+</body>
+</html>
